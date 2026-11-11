@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Login{% endblock %}
+{% block content %}<form method="post" class="box"><h2>Welcome back</h2>{% csrf_token %}
+<input type="hidden" name="next" value="{{ request.GET.next }}">{{ form.non_field_errors }}
+{% for field in form %}{% include "partials/field.html" %}{% endfor %}
+<button class="btn c wide">Log in</button>
+<p class="m"><a href="{% url 'password_reset' %}">Forgot password?</a> &middot; <a href="{% url 'register' %}">Create account</a></p></form>{% endblock %}

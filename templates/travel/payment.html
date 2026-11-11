@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}Payment{% endblock %}
+{% block content %}<div class="box"><h2>Payment</h2>
+<div class="sum"><b>{{ b.reference }}</b><br>{{ b.get_kind_display }}: {{ b.item }}<br>{{ b.traveller_name }} &middot; {{ b.contact }}
+{% if b.start_date %}<br>{{ b.start_date }} to {{ b.end_date }}{% endif %}{% if b.kind == "package" %}<br>Travellers: {{ b.members }}{% endif %}
+<br>Total: <b class="pr">&#8377;{{ b.total }}</b></div>
+{% if pay.status == "success" %}<p class="msg success">Payment verified. Transaction {{ pay.transaction_id }}.</p>
+<a class="btn" href="{% url 'receipt' b.reference %}">Download PDF receipt</a>
+{% else %}
+{% if upi_ready %}<p class="m">Scan with any UPI app. Your booking is confirmed only after the payment provider verifies it.</p>
+<img class="qr" src="{% url 'qr_png' b.reference %}" alt="UPI payment QR for {{ b.reference }}">
+{% else %}<p class="err">Pay on Arrival</p>{% endif %}
+<p class="m">Status: {{ pay.get_status_display }}</p>
+{% if sandbox %}<form method="post" action="{% url 'sandbox_pay' b.reference %}">{% csrf_token %}<button class="btn o">Simulate verified payment (dev only)</button></form>{% endif %}
+{% endif %}<p><a href="{% url 'home' %}">Back to home</a> &middot; <a href="{% url 'dashboard' %}">My bookings</a></p></div>{% endblock %}

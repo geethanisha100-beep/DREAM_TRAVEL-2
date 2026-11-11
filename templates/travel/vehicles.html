@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}Vehicles{% endblock %}
+{% block content %}<h2>Vehicles</h2>
+<h3>Two-wheelers</h3><div class="grid">{% for v in two %}{% include "partials/vcard.html" %}{% empty %}<p class="m">None listed.</p>{% endfor %}</div>
+<h3>Four-wheelers</h3><div class="grid">{% for v in four %}{% include "partials/vcard.html" %}{% empty %}<p class="m">None listed.</p>{% endfor %}</div>{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}Tour packages{% endblock %}
+{% block content %}<h2>Tour packages</h2>
+<form class="bar" method="get"><input name="q" value="{{ q }}" placeholder="Search place or title">
+<input name="start" value="{{ start }}" placeholder="Starting point">
+
+<select name="category"><option value="">All categories</option>{% for k,v in categories %}<option value="{{ k }}" {% if k == cat %}selected{% endif %}>{{ v }}</option>{% endfor %}</select>
+<button class="btn">Search</button></form>
+<div class="grid">{% for p in items %}{% include "partials/pcard.html" %}{% empty %}<p class="m">No packages match your search.</p>{% endfor %}</div>{% endblock %}

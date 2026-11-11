@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}Destinations{% endblock %}
+{% block content %}<h2>Destinations</h2>
+<form class="bar" method="get"><input name="q" value="{{ q }}" placeholder="Search name or location">
+<select name="district"><option value="">All districts</option>{% for s in districts %}<option {% if s == district %}selected{% endif %}>{{ s }}</option>{% endfor %}</select>
+<select name="category"><option value="">All categories</option>{% for k,v in categories %}<option value="{{ k }}" {% if k == cat %}selected{% endif %}>{{ v }}</option>{% endfor %}</select>
+<button class="btn">Search</button></form>
+<div class="grid">{% for d in items %}{% include "partials/dcard.html" %}{% empty %}<p class="m">No destinations match. Try another search.</p>{% endfor %}</div>{% endblock %}

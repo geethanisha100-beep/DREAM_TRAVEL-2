@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}
+{% block content %}<h2>Hello, {{ user.first_name|default:user.username }}</h2>
+<div class="detail"><form method="post" enctype="multipart/form-data" class="box">{% csrf_token %}<h3>My profile</h3>
+{% if user.profile.photo %}<img class="avatar" src="{{ user.profile.photo.url }}" alt="Profile photo">{% endif %}
+{% for field in form %}{% include "partials/field.html" %}{% endfor %}<button class="btn">Save profile</button></form>
+<div><h3>Wishlist</h3>{% for w in wishlist %}<p><a href="{% url 'package_detail' w.package.pk %}">{{ w.package.title }}</a></p>{% empty %}<p class="m">Nothing saved yet.</p>{% endfor %}
+<h3>My bookings</h3>{% for b in bookings %}<div class="rev"><b>{{ b.reference }}</b> {{ b.get_kind_display }}: {{ b.item }} &middot; &#8377;{{ b.total }} &middot; {{ b.get_status_display }}
+{% if b.payment.status == "success" %}<a href="{% url 'receipt' b.reference %}">Receipt</a>{% else %}<a href="{% url 'payment' b.reference %}">Pay now</a>{% endif %}</div>{% empty %}<p class="m">No bookings yet.</p>{% endfor %}
+<h3>Payment history</h3>{% for p in payments %}<p class="m">{{ p.booking.reference }} &middot; &#8377;{{ p.amount }} &middot; {{ p.get_status_display }} {{ p.transaction_id }} {{ p.paid_at|default_if_none:"" }}</p>{% empty %}<p class="m">No payments yet.</p>{% endfor %}</div></div>{% endblock %}

@@ -1,0 +1,29 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Dream Travel{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head><body>
+<header class="top">
+  <a class="logo" href="{% url 'home' %}">Dream<b>Travel</b></a>
+  <nav>
+    <a href="{% url 'home' %}">Home</a><a href="{% url 'destinations' %}">Destinations</a>
+    <a href="{% url 'packages' %}">Tour packages</a><a href="{% url 'vehicles' %}">Vehicles</a>
+    <a href="{% url 'hotels' %}">Hotels</a><a href="{% url 'home' %}#about">About</a>
+    <a href="/admin/">Admin login</a>
+  </nav>
+  <div class="auth">
+  {% if user.is_authenticated %}
+    <a class="btn o" href="{% url 'dashboard' %}">Dashboard</a>
+    <form method="post" action="{% url 'logout' %}" class="inline">{% csrf_token %}<button class="btn o">Logout</button></form>
+  {% else %}
+    <a class="btn o" href="{% url 'login' %}">Login</a><a class="btn c" href="{% url 'register' %}">Register</a>
+  {% endif %}</div>
+</header>
+{% if messages %}<div class="msgs">{% for m in messages %}<p class="msg {{ m.tags }}">{{ m }}</p>{% endfor %}</div>{% endif %}
+<main>{% block content %}{% endblock %}</main>
+{% block info %}<footer class="small">Dream Travel &copy; 2026</footer>{% endblock %}
+<script src="{% static 'js/main.js' %}"></script>
+</body></html>

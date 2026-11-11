@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block title %}{{ p.title }}{% endblock %}
+{% block content %}<div class="detail"><div class="card">{% include "partials/pcard.html" %}</div>
+<div><h2>{{ p.title }}</h2>
+<p class="m">Destination: <a href="{% url 'destination_detail' p.destination.pk %}">{{ p.destination.name }}</a>, {{ p.destination.state }}, {{ p.destination.country }}</p>
+<p class="m">Pickup: {{ p.pickup_point|default:p.starting_location }}{% if p.pickup_map_url %} (<a target="_blank" rel="noopener" href="{{ p.pickup_map_url }}">map</a>){% endif %}</p>
+<p class="m">{{ p.travel_start_date }} to {{ p.travel_end_date }} &middot; {{ p.duration }} &middot; &#8377;{{ p.price_per_person }} per member{% if p.additional_charges %} + &#8377;{{ p.additional_charges }} additional charges{% endif %}</p>
+<p>{{ p.description|linebreaks }}</p>
+<h3>Route</h3><ol>{% for s in p.stops %}<li>{{ s }}</li>{% endfor %}</ol></div></div>
+<h2>Reviews (&#9733; {{ p.rating }})</h2>
+{% for r in p.reviews.all %}<div class="rev"><b>{{ r.user.first_name|default:"Traveller" }}</b> &#9733; {{ r.rating }}<br>{{ r.comment }}</div>{% empty %}<p class="m">No reviews yet.</p>{% endfor %}
+{% if user.is_authenticated %}<form method="post" class="box">{% csrf_token %}<label>Rating (1-5)</label><select name="rating">{% for i in "54321" %}<option>{{ i }}</option>{% endfor %}</select><label>Comment</label><textarea name="comment" rows="2"></textarea><button class="btn">Post review</button></form>
+{% else %}<p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to write a review.</p>{% endif %}{% endblock %}

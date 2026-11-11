@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}Register{% endblock %}
+{% block content %}<form method="post" class="box" novalidate data-pwform>
+<h2>Create account</h2>{% csrf_token %}{{ form.non_field_errors }}
+{% for field in form %}{% include "partials/field.html" %}
+{% if field.name == "password1" %}<ul class="rules" id="rules">
+<li data-r="len">8 to 20 characters</li><li data-r="up">Starts with an uppercase letter (A-Z)</li>
+<li data-r="num">Contains a number (0-9)</li><li data-r="sp">Contains a special character (! @ # $ % &amp;)</li></ul>{% endif %}{% endfor %}
+<button class="btn c wide">Register</button><p class="m">Already registered? <a href="{% url 'login' %}">Log in</a></p></form>{% endblock %}

@@ -1,0 +1,4 @@
+<article class="card"><div class="ph"><img src="{{ v.photo.url }}" alt="{{ v.name }}"></div><div class="bd">
+<h3>{{ v.name }} <small class="m">{{ v.model_name }}</small></h3><span class="m">&#9733; {{ v.rating }} &middot; {% if v.bookable %}{{ v.quantity }} available{% else %}Unavailable{% endif %}</span>
+<p class="m">{{ v.description|truncatewords:15 }}</p><span class="pr">&#8377;{{ v.rent_per_day }} <small class="m">per day</small></span>
+{% if v.bookable %}<a class="btn c" href="{% url 'book' 'vehicle' v.pk %}">Rent now</a>{% else %}<button class="btn" disabled>Unavailable</button>{% endif %}</div></article>

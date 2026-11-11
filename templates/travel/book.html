@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Book{% endblock %}
+{% block content %}<form method="post" class="box" id="bookform" data-kind="{{ kind }}" data-unit="{{ unit }}" data-extra="{{ extra }}" data-rooms='{{ rooms }}'>
+<h2>Book: {{ obj }}</h2>{% csrf_token %}{{ form.non_field_errors }}
+{% for field in form %}{% include "partials/field.html" %}{% endfor %}
+<div class="sum">Total: <b class="pr" id="total">&#8377;0</b><br><small class="m">The final amount is calculated again on the server.</small></div>
+<button class="btn c">Proceed to Payment</button></form>{% endblock %}

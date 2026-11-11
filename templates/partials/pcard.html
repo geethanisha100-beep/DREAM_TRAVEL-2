@@ -1,0 +1,10 @@
+<article class="card">
+<div class="ph slider">{% for ph in p.photos.all %}<img src="{{ ph.image.url }}" alt="{{ p.title }}">{% empty %}<img src="{{ p.destination.photo.url }}" alt="{{ p.title }}">{% endfor %}
+<button class="ar l" type="button" aria-label="Previous">&lsaquo;</button><button class="ar r" type="button" aria-label="Next">&rsaquo;</button></div>
+<div class="bd"><span class="m">{{ p.destination.city }}, {{ p.destination.state }} &middot; from {{ p.starting_location }}</span>
+<h3>{{ p.title }}</h3><span class="m">{{ p.duration }} &middot; {{ p.travel_start_date }} &middot; &#9733; {{ p.rating }}</span>
+<span class="m">{% if p.bookable %}{{ p.available_seats }} seats left{% else %}Not available{% endif %}</span>
+<span class="pr">&#8377;{{ p.price_per_person }} <small class="m">per person</small></span>
+<div class="row"><a class="btn o" href="{% url 'package_detail' p.pk %}">View details</a>
+<form method="post" action="{% url 'wishlist_toggle' p.pk %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.path }}">{% if user.is_authenticated %}<button class="btn o">&#9825; Wishlist</button>{% else %}<a class="btn o" href="{% url 'login' %}?next={{ request.path }}">&#9825; Wishlist</a>{% endif %}</form>
+{% if p.bookable %}<a class="btn c" href="{% url 'book' 'package' p.pk %}">Book now</a>{% endif %}</div></div></article>

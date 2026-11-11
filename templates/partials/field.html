@@ -1,0 +1,7 @@
+<div class="f">
+  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+  {% if field.field.widget.input_type == "password" %}
+  <div class="pw">{{ field }}<button type="button" class="eye" data-target="{{ field.id_for_label }}" aria-label="Show or hide {{ field.label }}">Show</button></div>
+  {% else %}{{ field }}{% endif %}
+  {% for e in field.errors %}<div class="err">{{ e }}</div>{% endfor %}
+</div>

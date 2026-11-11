@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}Hotels{% endblock %}
+{% block content %}<h2>Hotels</h2><div class="grid">{% for h in items %}
+<article class="card"><div class="ph"><img src="{{ h.photo.url }}" alt="{{ h.name }}"></div><div class="bd">
+<h3>{{ h.name }}</h3><span class="m">{{ h.location }} &middot; &#9733; {{ h.rating }}</span><span class="m">Food: {{ h.food_details }}</span>
+{% for r in h.rooms.all %}<span class="m">{{ r.get_room_type_display }}: &#8377;{{ r.charge_per_day }} per day</span>{% endfor %}
+{% if h.is_available %}<a class="btn c" href="{% url 'book' 'hotel' h.pk %}">Book a room</a>{% else %}<button class="btn" disabled>Unavailable</button>{% endif %}</div></article>
+{% empty %}<p class="m">No hotels listed yet.</p>{% endfor %}</div>{% endblock %}

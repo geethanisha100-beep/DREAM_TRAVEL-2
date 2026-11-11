@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% load static %}
+{% block content %}
+<section class="hero"><h1><center>Dream Travel</center></h1><p><marquee direction="left">Hills, beaches, heritage and honeymoon trips. Packages, hotels and rental vehicles in one booking.</marquee></p>
+<div class="row"><a class="btn c" href="{% url 'packages' %}">Explore packages</a><a class="btn o light" href="{% url 'destinations' %}">Browse destinations</a></div></section>
+<h2>Popular destinations</h2><div class="grid">{% for d in destinations %}{% include "partials/dcard.html" %}{% empty %}<p class="m">Add destinations in the admin to see them here.</p>{% endfor %}</div>
+<h2>Featured packages</h2><div class="grid">{% for p in packages %}{% include "partials/pcard.html" %}{% empty %}<p class="m">Add tour packages in the admin to see them here.</p>{% endfor %}</div>
+{% endblock %}
+{% block info %}<section class="info" id="about"><div class="in">
+<div><h3>About Dream Travel</h3><p>We plan hill, beach, heritage and adventure trips, with hotels and vehicles in one booking.</p></div>
+<div><h3>Contact</h3><p>+91 9964989403<br>ttamadmin123@gmail.com<br>12 Vivekananda Road, Tumkur</p></div>
+<div><h3>Useful links</h3><p><a href="{% url 'packages' %}">Packages</a><br><a href="{% url 'hotels' %}">Hotels</a><br><a href="/admin/">Admin login</a></p></div>
+</div></section>{% endblock %}

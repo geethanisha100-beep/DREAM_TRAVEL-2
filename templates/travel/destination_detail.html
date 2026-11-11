@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}{{ d.name }}{% endblock %}
+{% block content %}<div class="detail"><div class="ph big"><img src="{{ d.photo.url }}" alt="{{ d.name }}"></div>
+<div><span class="tag">{{ d.get_category_display }}</span><h2>{{ d.name }}</h2>
+<p class="m">{{ d.city }}, {{ d.district }}, {{ d.country }}{% if d.address_or_landmark %} &middot; {{ d.address_or_landmark }}{% endif %}</p>
+<p>{{ d.description|linebreaks }}</p>
+{% if d.directions_url %}<a class="btn" target="_blank" rel="noopener" href="{{ d.directions_url }}">Get directions</a>{% endif %}</div></div>
+<h2>Packages to {{ d.name }}</h2><div class="grid">{% for p in d.packages.all %}{% include "partials/pcard.html" %}{% empty %}<p class="m">No packages yet.</p>{% endfor %}</div>{% endblock %}

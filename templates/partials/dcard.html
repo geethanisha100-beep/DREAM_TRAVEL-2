@@ -1,0 +1,3 @@
+<article class="card"><a href="{% url 'destination_detail' d.pk %}"><div class="ph"><img src="{{ d.photo.url }}" alt="{{ d.name }}"></div></a>
+<div class="bd"><span class="tag">{{ d.get_category_display }}</span><h3>{{ d.name }}</h3>
+<span class="m">{{ d.city }}, {{ d.state }}</span><p class="m">{{ d.description|truncatewords:18 }}</p></div></article>
